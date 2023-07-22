@@ -5,9 +5,9 @@ using UnityEngine;
 public class TheScript : MonoBehaviour
 {
     // Start is called before the first frame update
-    public Rigidbody2D myrigidbody;
-    public float Moveleftandright;
-    public float Jump;
+    public Rigidbody2D player;
+    public float speed = 5f;
+    public float Jump = 5f;
 
     void Start()
     {
@@ -17,17 +17,17 @@ public class TheScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.W) == true)
+        InputHandler();
+    }
+    void InputHandler()
+    {
+        float Movement_RightLeft = Input.GetAxis("Horizontal");
+        float Movement_UpDown = Input.GetAxis("Vertical");
+        if ((Movement_RightLeft != 0f) || (Movement_UpDown != 0f))
         {
-            myrigidbody.velocity = Vector2.up * Jump;
+             player.velocity = new Vector2(Movement_RightLeft * speed, Movement_UpDown*speed);
         }
-        if (Input.GetKey(KeyCode.A))
-        {
-            transform.position += (Vector3.left * Moveleftandright) * Time.deltaTime;
-        }
-         if (Input.GetKey(KeyCode.D))
-        {
-            transform.position += (Vector3.left * Moveleftandright) * Time.deltaTime * -1;
-        }
+
+       
     }
 }
